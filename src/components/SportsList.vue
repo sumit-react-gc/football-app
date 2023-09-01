@@ -1,68 +1,131 @@
 <template>
-  <section class="table-custom">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="table-responsive">
+      <section class="table-custom">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="table-responsive">
+    <table v-if="loading" class="table table-borderless">
+      <!-- Skeleton Loading Rows -->
+      <tbody>
+        <tr v-for="n in pageSize" :key="n">
+          <td><div class="skeleton loading">&nbsp;</div></td>
+          <!-- <td><div class="skeleton loading">&nbsp;</div></td>
+          <td><div class="skeleton loading">&nbsp;</div></td>
+          <td><div class="skeleton loading">&nbsp;</div></td>
+          <td><div class="skeleton loading">&nbsp;</div></td>
+          <td><div class="skeleton loading">&nbsp;</div></td>
+          <td><div class="skeleton loading">&nbsp;</div></td>
+          <td><div class="skeleton loading">&nbsp;</div></td>
+          <td><div class="skeleton loading">&nbsp;</div></td>
+          <td><div class="skeleton loading">&nbsp;</div></td>
+          <td><div class="skeleton loading">&nbsp;</div></td>
+          <td><div class="skeleton loading">&nbsp;</div></td> -->
+        </tr>
+      </tbody>
+    </table>
 
-
-            <table class="table table-borderless">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th>Form</th>
-                  <th>GP</th>
-                  <th>W</th>
-                  <th>D</th>
-                  <th>L</th>
-                  <th>GF</th>
-                  <th>GA</th>
-                  <th>GD</th>
-                  <th>Pts</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="team in displayedTeams" :key="team.teamid">
-                  <td>{{ team.intRank }}</td>
-                  <td><img :src="team.strTeamBadge" alt="Team Logo" class="team-logo" /></td>
-                  <td>{{ team.strTeam }}</td>
-                  <td>
-                    <span v-for="(result, index) in team.strForm" :key="index" :class="{
-                      'fas fa-check text-success': result === 'W',
-                      'fas fa-times text-danger': result === 'L',
-                      'fas fa-minus text-secondary': result === 'D'
-                    }" :style="{
-  backgroundColor: result === 'W' ? 'green' : result === 'L' ? 'red' : 'gray',
-  padding: '10px',
-  borderRadius: '100%',
-  marginRight: '10px',
-}"></span>
-                  </td>
-                  <td>{{ team.intPlayed }}</td>
-                  <td>{{ team.intWin }}</td>
-                  <td>{{ team.intDraw }}</td>
-                  <td>{{ team.intLoss }}</td>
-                  <td>{{ team.intGoalsFor }}</td>
-                  <td>{{ team.intGoalsAgainst }}</td>
-                  <td>{{ team.intGoalDifference }}</td>
-                  <td>{{ team.intPoints }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <button style="margin: auto;display: block;" v-if="showLoadMoreButton" @click="loadMore"
-              class="btn btn-primary ">
-              Load more
-            </button>
+    <table v-else class="table table-borderless">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>Form</th>
+          <th>GP</th>
+          <th>W</th>
+          <th>D</th>
+          <th>L</th>
+          <th>GF</th>
+          <th>GA</th>
+          <th>GD</th>
+          <th>Pts</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="team in displayedTeams" :key="team.teamid">
+          <td>{{ team.intRank }}</td>
+          <td><img :src="team.strTeamBadge" alt="Team Logo" class="team-logo" /></td>
+          <td>{{ team.strTeam }}</td>
+          <td>
+            <span
+              v-for="(result, index) in team.strForm"
+              :key="index"
+              :class="{
+                'fas fa-check text-success': result === 'W',
+                'fas fa-times text-danger': result === 'L',
+                'fas fa-minus text-secondary': result === 'D'
+              }"
+              :style="{
+                backgroundColor: result === 'W' ? 'green' : result === 'L' ? 'red' : 'gray',
+                padding: '10px',
+                borderRadius: '100%',
+                marginRight: '10px',
+              }"
+            ></span>
+          </td>
+          <td>{{ team.intPlayed }}</td>
+          <td>{{ team.intWin }}</td>
+          <td>{{ team.intDraw }}</td>
+          <td>{{ team.intLoss }}</td>
+          <td>{{ team.intGoalsFor }}</td>
+          <td>{{ team.intGoalsAgainst }}</td>
+          <td>{{ team.intGoalDifference }}</td>
+          <td>{{ team.intPoints }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button style="margin: auto;display: block;" v-if="showLoadMoreButton" @click="loadMore" class="btn btn-primary ">
+      Load more
+    </button>
+  </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
 </template>
 
+<style>
+/* Your existing styles */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+table.table.table-borderless {
+    min-width: 1200px;
+}
 
+span.fas {
+  color: #fff !important;
+    width: 35px;
+    height: 36px;
+    font-size: 17px;
+    line-height: 19px;
+    text-align: center;
+  }
+
+table.table.table-borderless tbody tr td {
+    vertical-align: middle;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+table.table.table-borderless thead tr th {
+    border-bottom: 1px solid #e9e9e9;
+    padding: 10px 20px;
+    vertical-align: middle;
+}
+
+@keyframes loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+</style>
 
 <script>
 export default {
@@ -79,7 +142,7 @@ export default {
     await this.fetchData();
     this.updateDisplayedTeams();
     this.loading = false;
-    // Mark loading as finished after fetching data
+     // Mark loading as finished after fetching data
 
   },
   methods: {
@@ -90,9 +153,9 @@ export default {
         );
         const data = await response.json();
         // setTimeout(() => {
-        this.teams = data.table;
+          this.teams = data.table;
         // }, 2000);
-
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
