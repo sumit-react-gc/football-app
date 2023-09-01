@@ -85,48 +85,6 @@
 
 </template>
 
-<style>
-/* Your existing styles */
-.skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-}
-table.table.table-borderless {
-    min-width: 1200px;
-}
-
-span.fas {
-  color: #fff !important;
-    width: 35px;
-    height: 36px;
-    font-size: 17px;
-    line-height: 19px;
-    text-align: center;
-  }
-
-table.table.table-borderless tbody tr td {
-    vertical-align: middle;
-    padding: 10px 20px;
-    border-bottom: 1px solid #e9e9e9;
-}
-
-table.table.table-borderless thead tr th {
-    border-bottom: 1px solid #e9e9e9;
-    padding: 10px 20px;
-    vertical-align: middle;
-}
-
-@keyframes loading {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-</style>
-
 <script>
 export default {
   data() {

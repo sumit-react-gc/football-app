@@ -4,7 +4,12 @@
   </div>
 </template>
 
+<style>
+  @import 'assets/css/style.css';
+</style>
+
 <script>
+
 import SportsList from './components/SportsList.vue';
 
 export default {
